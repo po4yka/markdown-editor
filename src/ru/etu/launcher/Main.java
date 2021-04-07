@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ru.etu.view.ImageLinkPicker;
 
 import java.io.File;
 import java.io.IOException;
