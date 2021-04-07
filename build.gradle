@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+group ''
+version '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'launcher.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+}
+
+javafx {
+    version = "11"
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.web' ]
+}
+
+dependencies {
+    implementation 'junit:junit:4.12'
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
+    testImplementation 'junit:junit:4.13'
+
+    implementation 'org.openjfx:javafx:11'
+
+    compile 'org.openjfx:javafx-base:11'
+    compile 'org.openjfx:javafx-graphics:11'
+    compile 'org.openjfx:javafx-controls:11'
+    compile 'org.openjfx:javafx-fxml:11'
+    compile 'org.openjfx:javafx-swing:11'
+    compile 'org.openjfx:javafx-media:11'
+    compile 'org.openjfx:javafx-web:11'
+
+    compile 'com.itextpdf:io:7.1.14'
+    compile 'com.itextpdf:kernel:7.1.14'
+    compile 'com.itextpdf:layout:7.1.14'
+    compile 'com.itextpdf:html2pdf:3.0.3'
+}
