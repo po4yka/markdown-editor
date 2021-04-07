@@ -8,7 +8,7 @@ group ''
 version '1.0-SNAPSHOT'
 
 application {
-    mainClass = 'launcher.Main'
+    mainClass = 'ru.etu.launcher.Main'
 }
 
 repositories {
