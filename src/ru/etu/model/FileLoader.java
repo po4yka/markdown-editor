@@ -1,7 +1,5 @@
 package ru.etu.model;
 
-// TODO: waiting for realization
-
 import ru.etu.model.utils.converters.MarkDownToHtmlConverter;
 
 import java.beans.PropertyChangeListener;
@@ -9,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileLoaded {
+public class FileLoader {
     public final String PROP_FILE_NAME = "fileName";
     public final String PROP_FILE_PATH = "filePath";
     public final String PROP_HTML_TEXT = "htmlText";
@@ -21,14 +19,14 @@ public class FileLoaded {
     private String savedMarkDownText;
     private String markDownText;
 
-    public FileLoaded(String fileName, String filePath, String markDownText) {
+    public FileLoader(String fileName, String filePath, String markDownText) {
         setFileName(fileName);
         setFilePath(filePath);
         savedMarkDownText = markDownText;
         setMarkDownText(markDownText);
     }
 
-    public FileLoaded(String fileName) {
+    public FileLoader(String fileName) {
         setFileName(fileName);
         setFilePath("");
         savedMarkDownText = "-1";

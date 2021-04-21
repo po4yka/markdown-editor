@@ -90,7 +90,7 @@ public class ImageLinkPicker {
 
     @FXML
     private void close() {
-        var stage = (Stage)cancelBtn.getScene().getWindow();
+        var stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
     }
 
