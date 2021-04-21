@@ -1,12 +1,12 @@
 package ru.etu.model;
 
-import ru.etu.model.utils.FileLoaded;
 import ru.etu.model.utils.StyleLoader;
 import ru.etu.model.utils.converters.MarkDownToHtmlConverter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Manager {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public final String PROP_SELECTED_STYLE = "selectedStyle";
     private String selectedStyle;
@@ -27,7 +27,7 @@ public class Manager {
     }
 
     public final String PROP_STYLES_LOADED = "stylesLoaded";
-    private Map<String, String> stylesLoaded = new HashMap<String,String>();
+    private final Map<String, String> stylesLoaded = new HashMap<String, String>();
     private void addStyleLoaded(String styleName, String styleText) {
         stylesLoaded.put(styleName, styleText);
         var index = stylesLoaded.size() - 1;
@@ -35,7 +35,7 @@ public class Manager {
     }
 
     public final String PROP_FILES_LOADED = "fileLoadeds";
-    private List<FileLoaded> fileLoadeds = new ArrayList<>();
+    private final List<FileLoaded> fileLoadeds = new ArrayList<>();
     private void addFileLoaded(FileLoaded fileLoaded) {
         fileLoadeds.add(fileLoaded);
         var index = fileLoadeds.indexOf(fileLoaded);
