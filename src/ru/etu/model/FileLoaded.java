@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileLoader {
+public class FileLoaded {
     public final String PROP_FILE_NAME = "fileName";
     public final String PROP_FILE_PATH = "filePath";
     public final String PROP_HTML_TEXT = "htmlText";
@@ -19,14 +19,14 @@ public class FileLoader {
     private String savedMarkDownText;
     private String markDownText;
 
-    public FileLoader(String fileName, String filePath, String markDownText) {
+    public FileLoaded(String fileName, String filePath, String markDownText) {
         setFileName(fileName);
         setFilePath(filePath);
         savedMarkDownText = markDownText;
         setMarkDownText(markDownText);
     }
 
-    public FileLoader(String fileName) {
+    public FileLoaded(String fileName) {
         setFileName(fileName);
         setFilePath("");
         savedMarkDownText = "-1";

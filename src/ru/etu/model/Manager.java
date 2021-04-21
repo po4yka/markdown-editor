@@ -1,6 +1,6 @@
 package ru.etu.model;
 
-import ru.etu.model.utils.FileLoader;
+import ru.etu.model.utils.FileLoaded;
 import ru.etu.model.utils.StyleLoader;
 import ru.etu.model.utils.converters.MarkDownToHtmlConverter;
 
@@ -66,7 +66,7 @@ public class Manager {
     }
 
     public void openFile(File file) throws IOException {
-        FileLoaded fileLoaded = FileLoader.loadFile(file);
+        FileLoaded fileLoaded = FileLoaded.loadFile(file);
         addFileLoaded(fileLoaded);
     }
 
@@ -83,7 +83,7 @@ public class Manager {
         if (fileLoaded.getFilePath().isEmpty()) {
             throw new InvalidPathException(fileLoaded.getFileName(), "FileLoaded path is null");
         }
-        FileLoader.saveFile(fileLoaded);
+        FileLoaded.saveFile(fileLoaded);
         fileLoaded.updateSavedText();
     }
 
@@ -104,7 +104,7 @@ public class Manager {
             if (file.getPath().isEmpty()) {
                 throw new InvalidPathException(fileLoaded.getFileName(), "FileLoaded path is null");
             }
-            FileLoader.exportFile(fileLoaded, file.getPath());
+            FileLoaded.exportFile(fileLoaded, file.getPath());
         } catch (IOException e) {
             fileLoaded.setFileName("new file");
             fileLoaded.setFilePath("");
