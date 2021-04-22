@@ -1,5 +1,6 @@
 package ru.etu.model;
 
+import ru.etu.model.utils.FileLoader;
 import ru.etu.model.utils.StyleLoader;
 import ru.etu.model.utils.converters.MarkDownToHtmlConverter;
 
@@ -18,16 +19,20 @@ public class Manager {
 
     public final String PROP_SELECTED_STYLE = "selectedStyle";
     private String selectedStyle;
-    public void setSelectedStyle (String selectedStyle) {
+
+    public void setSelectedStyle(String selectedStyle) {
         var oldValue = this.selectedStyle;
         this.selectedStyle = selectedStyle;
         MarkDownToHtmlConverter.setCurrentStyle(stylesLoaded.get(selectedStyle));
-        for(var fileLoaded: fileLoadeds) { fileLoaded.updateHtmlText(); }
+        for (var fileLoaded : fileLoadeds) {
+            fileLoaded.updateHtmlText();
+        }
         support.firePropertyChange(PROP_SELECTED_STYLE, oldValue, selectedStyle);
     }
 
     public final String PROP_STYLES_LOADED = "stylesLoaded";
     private final Map<String, String> stylesLoaded = new HashMap<String, String>();
+
     private void addStyleLoaded(String styleName, String styleText) {
         stylesLoaded.put(styleName, styleText);
         var index = stylesLoaded.size() - 1;
@@ -36,13 +41,14 @@ public class Manager {
 
     public final String PROP_FILES_LOADED = "fileLoadeds";
     private final List<FileLoaded> fileLoadeds = new ArrayList<>();
+
     private void addFileLoaded(FileLoaded fileLoaded) {
         fileLoadeds.add(fileLoaded);
         var index = fileLoadeds.indexOf(fileLoaded);
         support.fireIndexedPropertyChange(PROP_FILES_LOADED, index, null, fileLoaded);
     }
 
-    public void closeFileLoaded(FileLoaded fileLoaded)  {
+    public void closeFileLoaded(FileLoaded fileLoaded) {
         var index = fileLoadeds.indexOf(fileLoaded);
         fileLoadeds.remove(index);
         if (fileLoadeds.size() == 0) {
@@ -66,11 +72,11 @@ public class Manager {
     }
 
     public void openFile(File file) throws IOException {
-        FileLoaded fileLoaded = FileLoaded.loadFile(file);
+        FileLoaded fileLoaded = FileLoader.loadFile(file);
         addFileLoaded(fileLoaded);
     }
 
-    public void newFile () {
+    public void newFile() {
         var newFile = new FileLoaded("new File");
         addFileLoaded(newFile);
     }
@@ -83,7 +89,7 @@ public class Manager {
         if (fileLoaded.getFilePath().isEmpty()) {
             throw new InvalidPathException(fileLoaded.getFileName(), "FileLoaded path is null");
         }
-        FileLoaded.saveFile(fileLoaded);
+        FileLoader.saveFile(fileLoaded);
         fileLoaded.updateSavedText();
     }
 
@@ -104,7 +110,7 @@ public class Manager {
             if (file.getPath().isEmpty()) {
                 throw new InvalidPathException(fileLoaded.getFileName(), "FileLoaded path is null");
             }
-            FileLoaded.exportFile(fileLoaded, file.getPath());
+            FileLoader.exportFile(fileLoaded, file.getPath());
         } catch (IOException e) {
             fileLoaded.setFileName("new file");
             fileLoaded.setFilePath("");
