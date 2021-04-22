@@ -10,6 +10,7 @@ import org.fxmisc.richtext.CodeArea;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class FileEditorControl extends BorderPane {
@@ -19,7 +20,6 @@ public class FileEditorControl extends BorderPane {
     @FXML
     private WebView webView;
 
-    // For traduction
     @FXML
     private Label selectedLineAndColLabel;
 
@@ -36,7 +36,7 @@ public class FileEditorControl extends BorderPane {
 
         setLocale(Locale.getDefault().toString());
 
-        codeArea.getStylesheets().add(MainApp.class.getResource("/style/codeAreaStyle.css").toExternalForm());
+        codeArea.getStylesheets().add(Objects.requireNonNull(MainApp.class.getResource("/style/codeAreaStyle.css")).toExternalForm());
 
         initialize();
     }

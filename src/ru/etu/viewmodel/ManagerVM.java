@@ -14,24 +14,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ManagerVM implements PropertyChangeListener {
-    private Manager model;
+    private final Manager model;
 
-    private StringProperty selectedStyle = new SimpleStringProperty();
-    public StringProperty seletedStyleProperty() { return selectedStyle; }
-    public void setSelectedStyle(String selectedStyle) { this.selectedStyle.setValue(selectedStyle); }
-
-    private ObservableList<String> styleListObs = FXCollections.observableArrayList(new ArrayList<>());
-    private ListProperty<String> styleList = new SimpleListProperty<>(styleListObs);
-    public ReadOnlyListProperty<String> styleListProperty() { return styleList; }
-
-    private ObservableList<FileLoadedVM> fileLoadedVMSObs = FXCollections.observableArrayList(new ArrayList<>());
-    private ListProperty<FileLoadedVM> fileLoadedVMS = new SimpleListProperty<>(fileLoadedVMSObs);
-    public ReadOnlyListProperty<FileLoadedVM> fileLoadedVMSProperty() { return fileLoadedVMS; }
+    private final StringProperty selectedStyle = new SimpleStringProperty();
+    private final ObservableList<String> styleListObs = FXCollections.observableArrayList(new ArrayList<>());
+    private final ListProperty<String> styleList = new SimpleListProperty<>(styleListObs);
+    private final ObservableList<FileLoadedVM> fileLoadedVMSObs = FXCollections.observableArrayList(new ArrayList<>());
+    private final ListProperty<FileLoadedVM> fileLoadedVMS = new SimpleListProperty<>(fileLoadedVMSObs);
 
     public ManagerVM() {
         model = new Manager();
         model.addPropertyChangeListener(this);
-        selectedStyle.addListener((arg, old, newV) -> { model.setSelectedStyle(newV); });
+        selectedStyle.addListener((arg, old, newV) -> {
+            model.setSelectedStyle(newV);
+        });
+    }
+
+    public StringProperty seletedStyleProperty() {
+        return selectedStyle;
+    }
+
+    public void setSelectedStyle(String selectedStyle) {
+        this.selectedStyle.setValue(selectedStyle);
+    }
+
+    public ReadOnlyListProperty<String> styleListProperty() {
+        return styleList;
+    }
+
+    public ReadOnlyListProperty<FileLoadedVM> fileLoadedVMSProperty() {
+        return fileLoadedVMS;
     }
 
     public void loadAllStyles() throws IOException {
@@ -45,7 +57,7 @@ public class ManagerVM implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(model.PROP_FILES_LOADED)) {
-            var indexedEvt = (IndexedPropertyChangeEvent)evt;
+            var indexedEvt = (IndexedPropertyChangeEvent) evt;
             if (indexedEvt.getOldValue() == null && indexedEvt.getNewValue() != null) {
                 var fileLoaded = (FileLoaded) indexedEvt.getNewValue();
                 var fileLoadedVM = new FileLoadedVM(fileLoaded);
@@ -54,7 +66,7 @@ public class ManagerVM implements PropertyChangeListener {
                 fileLoadedVMSObs.remove(indexedEvt.getIndex());
             }
         } else if (evt.getPropertyName().equals(model.PROP_STYLES_LOADED)) {
-            var indexedEvt = (IndexedPropertyChangeEvent)evt;
+            var indexedEvt = (IndexedPropertyChangeEvent) evt;
             if (indexedEvt.getOldValue() == null && indexedEvt.getNewValue() != null) {
                 var style = (String) indexedEvt.getNewValue();
                 styleListObs.add(indexedEvt.getIndex(), style);
@@ -63,7 +75,7 @@ public class ManagerVM implements PropertyChangeListener {
             }
         } else if (evt.getPropertyName().equals(model.PROP_SELECTED_STYLE)) {
             if (!evt.getNewValue().equals(evt.getOldValue())) {
-                var selectedStyle = (String)evt.getNewValue();
+                var selectedStyle = (String) evt.getNewValue();
                 this.selectedStyle.setValue(selectedStyle);
             }
         }
@@ -77,7 +89,7 @@ public class ManagerVM implements PropertyChangeListener {
         model.openFile(file);
     }
 
-    public void save (FileLoadedVM fileLoadedVM) throws IOException {
+    public void save(FileLoadedVM fileLoadedVM) throws IOException {
         model.save(fileLoadedVM.getModel());
     }
 

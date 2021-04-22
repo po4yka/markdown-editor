@@ -18,13 +18,11 @@ public abstract class MarkDownToHtmlConverter {
     }
 
     public static String convert(String markDownText) {
-        var convertedText = new StringBuilder();
-        convertedText.append("<html>\n<header>\n<style>");
-        convertedText.append(currentStyle);
-        convertedText.append("\n</style>\n</header>\n<body>\n");
-        convertedText.append(getConvertedBodyHtml(markDownText));
-        convertedText.append("\n</body>\n</html>");
-        return convertedText.toString();
+        return "<html>\n<header>\n<style>" +
+                currentStyle +
+                "\n</style>\n</header>\n<body>\n" +
+                getConvertedBodyHtml(markDownText) +
+                "\n</body>\n</html>";
     }
 
     public static String getConvertedBodyHtml(String markDownText) {
@@ -63,10 +61,10 @@ public abstract class MarkDownToHtmlConverter {
             }
         }
         if (mayBeTable) {
-            convertedText.append(previousLine + "\n");
+            convertedText.append(previousLine).append("\n");
         }
         convertedText.append(closeAllCurrentWeakBalise(""));
-        convertedText.append(closeAllCurrentStrongBalise(""));
+        convertedText.append(closeAllCurrentStrongBalise());
         return convertedText.toString();
     }
 
@@ -176,7 +174,7 @@ public abstract class MarkDownToHtmlConverter {
                 }
                 sb.append("</tr>");
                 previousLine = sb.toString();
-                previousLine = openWeakBalise(previousLine, "table", true);
+                previousLine = openWeakBalise(previousLine, "table");
 
                 mustAppendPreviousLine = true;
                 mustIgnoreCurrentLine = true;
@@ -204,7 +202,7 @@ public abstract class MarkDownToHtmlConverter {
         if (line.matches("^[-*][\\s].+")) {
             line = String.format("<li>%s</li>", line.replaceFirst("^(-|\\*)[\\s]", ""));
             if (getWeakBaliseIndex(balise) < 0) {
-                line = openWeakBalise(line, balise, true);
+                line = openWeakBalise(line, balise);
             }
             return line;
         }
@@ -215,7 +213,7 @@ public abstract class MarkDownToHtmlConverter {
         if (line.matches("^\\d[.][\\s].+")) {
             line = String.format("<li>%s</li>", line.replaceFirst("^\\d[.][\\s]", ""));
             if (getWeakBaliseIndex(balise) < 0) {
-                line = openWeakBalise(line, balise, true);
+                line = openWeakBalise(line, balise);
             }
             return line;
         }
@@ -324,22 +322,20 @@ public abstract class MarkDownToHtmlConverter {
         return stringBuilder.toString();
     }
 
-    private static String closeAllCurrentStrongBalise(String line) {
+    private static String closeAllCurrentStrongBalise() {
         var stringBuilder = new StringBuilder();
 
         for (var balise : openStrongBaliseStack) {
             stringBuilder.append(String.format("</%s>", balise));
         }
         openStrongBaliseStack.clear();
-        stringBuilder.append(line);
+        stringBuilder.append("");
         return stringBuilder.toString();
     }
 
-    private static String openWeakBalise(String line, String balise, Boolean closeAllCurrentWeakBalise) {
+    private static String openWeakBalise(String line, String balise) {
         line = String.format("<%s>\n%s", balise, line);
-        if (closeAllCurrentWeakBalise) {
-            line = closeAllCurrentWeakBalise(line);
-        }
+        line = closeAllCurrentWeakBalise(line);
         openWeakBaliseStack.add(balise);
         return line;
     }
