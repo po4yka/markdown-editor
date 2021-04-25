@@ -8,7 +8,7 @@ group ''
 version '1.0-SNAPSHOT'
 
 application {
-    mainClass = 'ru.etu.launcher.Main'
+    mainClassName = 'ru.etu.launcher.Main'
 }
 
 repositories {
@@ -17,12 +17,8 @@ repositories {
 
 sourceSets {
     main {
-        java {
-            srcDirs = ['src']
-        }
-        resources {
-            srcDirs = ['resources']
-        }
+        java.srcDirs = ['src']
+        resources.srcDirs = ['resources']
     }
 }
 

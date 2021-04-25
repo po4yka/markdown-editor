@@ -130,14 +130,14 @@ public class MainApp {
         Locale locale = new Locale(lang);
         ResourceBundle bundle = ResourceBundle.getBundle("config.lang", locale);
 
-        menuFile.setText(String.join(" ", "//", bundle.getString("menuFile")));
-        menuItemHelp.setText(String.join(" ", "//", bundle.getString("menuHelp")));
-        menuOptions.setText(String.join(" ", "//", bundle.getString("menuOptions")));
-        menuItemNewFile.setText(String.join(" ", "//", bundle.getString("menuItemNewFile")));
-        menuItemOpen.setText(String.join(" ", "//", bundle.getString("menuItemOpen")));
-        menuItemSave.setText(String.join(" ", "//", bundle.getString("menuItemSave")));
-        menuItemSaveAs.setText(String.join(" ", "//", bundle.getString("menuItemSaveAs")));
-        menuItemExportAs.setText(String.join(" ", "//", bundle.getString("menuItemExportAs")));
+        menuFile.setText(String.join(" ", "", bundle.getString("menuFile")));
+        menuItemHelp.setText(String.join(" ", "", bundle.getString("menuHelp")));
+        menuOptions.setText(String.join(" ", "", bundle.getString("menuOptions")));
+        menuItemNewFile.setText(String.join(" ", "", bundle.getString("menuItemNewFile")));
+        menuItemOpen.setText(String.join(" ", "", bundle.getString("menuItemOpen")));
+        menuItemSave.setText(String.join(" ", "", bundle.getString("menuItemSave")));
+        menuItemSaveAs.setText(String.join(" ", "", bundle.getString("menuItemSaveAs")));
+        menuItemExportAs.setText(String.join(" ", "", bundle.getString("menuItemExportAs")));
 
         boldBtn.setText(bundle.getString("boldBtn"));
         italicBtn.setText(bundle.getString("italicBtn"));
