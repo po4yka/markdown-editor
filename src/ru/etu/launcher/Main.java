@@ -23,6 +23,23 @@ public class Main extends Application {
         return stage;
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            classValue = getClass();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/mainApp.fxml")));
+            primaryStage.setTitle("MD Editor");
+
+            var scene = new Scene(root);
+            primaryStage.setScene(scene);
+            stage = primaryStage;
+
+            primaryStage.show();
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -154,22 +171,5 @@ public class Main extends Application {
         }
 
         return file.getAbsolutePath();
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            classValue = getClass();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/mainApp.fxml")));
-            primaryStage.setTitle("MD Editor");
-
-            var scene = new Scene(root);
-            primaryStage.setScene(scene);
-            stage = primaryStage;
-
-            primaryStage.show();
-        } catch (Exception e) {
-            displayError(e);
-        }
     }
 }
