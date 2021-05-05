@@ -47,17 +47,14 @@ public abstract class CodeAreaInitializer {
 
     public static void initialize(CodeArea codeArea) {
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-
         Subscription cleanupWhenNoLongerNeedIt = codeArea
                 .multiPlainChanges()
-                // refresh rate
                 .successionEnds(Duration.ofMillis(1))
                 .subscribe(ignore -> codeArea.setStyleSpans(0, computeHighlighting(codeArea.getText())));
-
     }
 
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {
-        Matcher matcher = PATTERN.matcher(text); // Adding an espace to get arround with \ character
+        Matcher matcher = PATTERN.matcher(text); 
         int lastKwEnd = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder
                 = new StyleSpansBuilder<>();
@@ -77,7 +74,7 @@ public abstract class CodeAreaInitializer {
                                                         matcher.group("BLOCKCODE") != null ? "blockcode" :
                                                                 matcher.group("CODE") != null ? "code" :
                     matcher.group("BALISE") != null ? "balise" :
-                                                        null; /* never happens */ assert styleClass != null;
+                                                        null;  assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start(styleClass.toUpperCase()) - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end(styleClass.toUpperCase()) - matcher.start(styleClass.toUpperCase()));
             lastKwEnd = matcher.end(styleClass.toUpperCase());
