@@ -29,7 +29,7 @@ public abstract class CodeAreaInitializer {
     private static final String ITALICBOLD_PATTERN = PatternFactory.generateMultilinedBalisePattern("[*_]{3}", "ITALICBOLD");
     private static final String BOLDSTRIKETHROUGH_PATTERN = PatternFactory.generateMultilinedBalisePattern("([~]{2}[*_]{2})|([*_]{2}[~]{2})", "BOLDSTRIKETHROUGH");
     private static final Pattern PATTERN = Pattern.compile(
-                    BOLDSTRIKETHROUGH_PATTERN
+            BOLDSTRIKETHROUGH_PATTERN
                     + "|" + ITALICBOLD_PATTERN
                     + "|" + BOLD_PATTERN
                     + "|" + ITALIC_PATTERN
@@ -47,18 +47,21 @@ public abstract class CodeAreaInitializer {
 
     public static void initialize(CodeArea codeArea) {
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+
         Subscription cleanupWhenNoLongerNeedIt = codeArea
                 .multiPlainChanges()
+                // refresh rate
                 .successionEnds(Duration.ofMillis(1))
                 .subscribe(ignore -> codeArea.setStyleSpans(0, computeHighlighting(codeArea.getText())));
+
     }
 
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {
-        Matcher matcher = PATTERN.matcher(text); 
+        Matcher matcher = PATTERN.matcher(text); // Adding an espace to get arround with \ character
         int lastKwEnd = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder
                 = new StyleSpansBuilder<>();
-        while(matcher.find()) {
+        while (matcher.find()) {
             String styleClass =
                     matcher.group("TITLE1") != null ? "title1" :
                             matcher.group("TITLE2") != null ? "title2" :
@@ -66,15 +69,16 @@ public abstract class CodeAreaInitializer {
                                             matcher.group("TITLE4") != null ? "title4" :
                                                     matcher.group("TITLE5") != null ? "title5" :
                                                             matcher.group("TITLE6") != null ? "title6" :
-                    matcher.group("BOLDSTRIKETHROUGH") != null ? "boldstrikethrough" :
-                        matcher.group("ITALICBOLD") != null ? "italicbold" :
-                            matcher.group("ITALIC") != null ? "italic" :
-                                    matcher.group("BOLD") != null ? "bold" :
-                                                matcher.group("STRIKETHROUGH") != null ? "strikethrough" :
-                                                        matcher.group("BLOCKCODE") != null ? "blockcode" :
-                                                                matcher.group("CODE") != null ? "code" :
-                    matcher.group("BALISE") != null ? "balise" :
-                                                        null;  assert styleClass != null;
+                                                                    matcher.group("BOLDSTRIKETHROUGH") != null ? "boldstrikethrough" :
+                                                                            matcher.group("ITALICBOLD") != null ? "italicbold" :
+                                                                                    matcher.group("ITALIC") != null ? "italic" :
+                                                                                            matcher.group("BOLD") != null ? "bold" :
+                                                                                                    matcher.group("STRIKETHROUGH") != null ? "strikethrough" :
+                                                                                                            matcher.group("BLOCKCODE") != null ? "blockcode" :
+                                                                                                                    matcher.group("CODE") != null ? "code" :
+                                                                                                                            matcher.group("BALISE") != null ? "balise" :
+                                                                                                                                    null; /* never happens */
+            assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start(styleClass.toUpperCase()) - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end(styleClass.toUpperCase()) - matcher.start(styleClass.toUpperCase()));
             lastKwEnd = matcher.end(styleClass.toUpperCase());

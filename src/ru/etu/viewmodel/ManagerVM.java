@@ -17,18 +17,6 @@ public class ManagerVM implements PropertyChangeListener {
     private final Manager model;
 
     private final StringProperty selectedStyle = new SimpleStringProperty();
-    private final ObservableList<String> styleListObs = FXCollections.observableArrayList(new ArrayList<>());
-    private final ListProperty<String> styleList = new SimpleListProperty<>(styleListObs);
-    private final ObservableList<FileLoadedVM> fileLoadedVMSObs = FXCollections.observableArrayList(new ArrayList<>());
-    private final ListProperty<FileLoadedVM> fileLoadedVMS = new SimpleListProperty<>(fileLoadedVMSObs);
-
-    public ManagerVM() {
-        model = new Manager();
-        model.addPropertyChangeListener(this);
-        selectedStyle.addListener((arg, old, newV) -> {
-            model.setSelectedStyle(newV);
-        });
-    }
 
     public StringProperty seletedStyleProperty() {
         return selectedStyle;
@@ -38,12 +26,26 @@ public class ManagerVM implements PropertyChangeListener {
         this.selectedStyle.setValue(selectedStyle);
     }
 
+    private final ObservableList<String> styleListObs = FXCollections.observableArrayList(new ArrayList<>());
+    private final ListProperty<String> styleList = new SimpleListProperty<>(styleListObs);
+
     public ReadOnlyListProperty<String> styleListProperty() {
         return styleList;
     }
 
+    private final ObservableList<FileLoadedVM> fileLoadedVMSObs = FXCollections.observableArrayList(new ArrayList<>());
+    private final ListProperty<FileLoadedVM> fileLoadedVMS = new SimpleListProperty<>(fileLoadedVMSObs);
+
     public ReadOnlyListProperty<FileLoadedVM> fileLoadedVMSProperty() {
         return fileLoadedVMS;
+    }
+
+    public ManagerVM() {
+        model = new Manager();
+        model.addPropertyChangeListener(this);
+        selectedStyle.addListener((arg, old, newV) -> {
+            model.setSelectedStyle(newV);
+        });
     }
 
     public void loadAllStyles() throws IOException {

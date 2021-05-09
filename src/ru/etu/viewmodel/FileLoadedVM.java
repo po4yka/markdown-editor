@@ -8,49 +8,49 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class FileLoadedVM implements PropertyChangeListener {
-    private FileLoaded model;
+    private final FileLoaded model;
 
     public FileLoaded getModel() {
         return model;
     }
 
-    private StringProperty fileName = new SimpleStringProperty();
+    private final StringProperty fileName = new SimpleStringProperty();
 
     public String fileName() {
         return fileName.get();
-    }
-
-    public String getFileName() {
-        return this.fileName.get();
     }
 
     private void setFileName(String fileName) {
         this.fileName.set(fileName);
     }
 
+    private final StringProperty markDownText = new SimpleStringProperty();
+
     public StringProperty fileNameProperty() {
         return fileName;
     }
 
-    private StringProperty markDownText = new SimpleStringProperty();
+    private final StringProperty htmlText = new SimpleStringProperty();
 
     public String markDownText() {
         return markDownText.get();
-    }
-
-    public String getMarkDownText() {
-        return this.markDownText.get();
     }
 
     private void setMarkDownText(String markDownText) {
         this.markDownText.set(markDownText);
     }
 
+    public String getFileName() {
+        return this.fileName.get();
+    }
+
     public StringProperty markDownTextProperty() {
         return markDownText;
     }
 
-    private StringProperty htmlText = new SimpleStringProperty();
+    public String getMarkDownText() {
+        return this.markDownText.get();
+    }
 
     public String getHtmlText() {
         return htmlText.get();
@@ -77,21 +77,21 @@ public class FileLoadedVM implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName() == model.PROP_HTML_TEXT) {
+        if (evt.getPropertyName().equals(model.PROP_HTML_TEXT)) {
             if (evt.getNewValue() != null) {
-                if ((String) evt.getOldValue() != (String) evt.getNewValue()) {
+                if (!evt.getOldValue().equals(evt.getNewValue())) {
                     setHtmlText((String) evt.getNewValue());
                 }
             }
-        } else if (evt.getPropertyName() == model.PROP_MARKDOWN_TEXT) {
+        } else if (evt.getPropertyName().equals(model.PROP_MARKDOWN_TEXT)) {
             if (evt.getNewValue() != null) {
-                if ((String) evt.getOldValue() != (String) evt.getNewValue()) {
+                if (!evt.getOldValue().equals(evt.getNewValue())) {
                     setMarkDownText((String) evt.getNewValue());
                 }
             }
-        } else if (evt.getPropertyName() == model.PROP_FILE_NAME) {
+        } else if (evt.getPropertyName().equals(model.PROP_FILE_NAME)) {
             if (evt.getNewValue() != null) {
-                if ((String) evt.getOldValue() != (String) evt.getNewValue()) {
+                if (evt.getOldValue() != evt.getNewValue()) {
                     setFileName((String) evt.getNewValue());
                 }
             }

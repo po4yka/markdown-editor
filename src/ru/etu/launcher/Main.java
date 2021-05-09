@@ -13,7 +13,6 @@ import ru.etu.view.ImageLinkPicker;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Main extends Application {
     private static Class classValue;
@@ -23,31 +22,13 @@ public class Main extends Application {
         return stage;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            classValue = getClass();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/mainApp.fxml")));
-            primaryStage.setTitle("MD Editor");
-
-            var scene = new Scene(root);
-            primaryStage.setScene(scene);
-            stage = primaryStage;
-
-            primaryStage.show();
-        } catch (Exception e) {
-            displayError(e);
-        }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    private static void openWindow() throws IOException {
+    /**
+     * WINDOWS
+     **/
+    private static void openWindow(String fxmlPath) throws IOException {
         var stage = new Stage();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(classValue.getResource("/fxml/helpWindow.fxml")));
+        Parent root = FXMLLoader.load(classValue.getResource(fxmlPath));
         var scene = new Scene(root);
         stage.setScene(scene);
         stage.initOwner(getParentStage());
@@ -55,8 +36,12 @@ public class Main extends Application {
         stage.showAndWait();
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     public static void openHelpWindow() throws IOException {
-        openWindow();
+        openWindow("/fxml/helpWindow.fxml");
     }
 
     public static boolean openNotSavedFileWindow() {
@@ -69,7 +54,27 @@ public class Main extends Application {
         alert.getButtonTypes().setAll(yesButton, noButton);
         alert.getDialogPane().getStylesheets().add("/style/darkTheme.css");
         alert.showAndWait();
-        return alert.getResult() == yesButton;
+        if (alert.getResult() == yesButton) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            classValue = getClass();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainApp.fxml"));
+            primaryStage.setTitle("MD Editor");
+
+            var scene = new Scene(root);
+            primaryStage.setScene(scene);
+            stage = primaryStage;
+
+            primaryStage.show();
+        } catch (Exception e) {
+            displayError(e);
+        }
     }
 
     public static void displayError(Exception e) {

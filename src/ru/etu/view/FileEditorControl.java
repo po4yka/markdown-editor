@@ -13,13 +13,14 @@ import ru.etu.viewmodel.FileLoadedVM;
 import ru.etu.viewmodel.ManagerVM;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class FileEditorControl extends BorderPane {
     private final FileLoadedVM fileLoadedVM;
+
     @FXML
     private Label selectedLineAndColLabel;
 
@@ -41,7 +42,8 @@ public class FileEditorControl extends BorderPane {
 
         setLocale(Locale.getDefault().toString());
 
-        codeArea.getStylesheets().add(Objects.requireNonNull(MainApp.class.getResource("/style/codeAreaStyle.css")).toExternalForm());
+        URL stylesheet = MainApp.class.getResource("/style/codeAreaStyle.css");
+        if (stylesheet != null) codeArea.getStylesheets().add(stylesheet.toExternalForm());
 
         this.fileLoadedVM = fileLoadedVM;
         initialize();
