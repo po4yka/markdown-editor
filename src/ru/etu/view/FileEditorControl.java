@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
 import org.fxmisc.richtext.CodeArea;
+import ru.etu.view.utils.CodeAreaInitializer;
 import ru.etu.viewmodel.FileLoadedVM;
 import ru.etu.viewmodel.ManagerVM;
 
@@ -19,7 +20,6 @@ import java.util.ResourceBundle;
 
 public class FileEditorControl extends BorderPane {
     private final FileLoadedVM fileLoadedVM;
-    // For traduction
     @FXML
     private Label selectedLineAndColLabel;
 
