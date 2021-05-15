@@ -8,9 +8,10 @@ import java.util.Map;
 
 public abstract class StyleLoader {
     public static Map<String, String> getAllStyles() throws IOException {
-        var map = new HashMap<String,String>();
+        var map = new HashMap<String, String>();
         var folder = new File("resources/stylesToLoad");
         var files = folder.listFiles();
+        assert files != null;
         for (File file : files) {
             var text = new String(Files.readAllBytes(file.toPath()));
             map.put(file.getName().replaceAll(".css$", ""), text);

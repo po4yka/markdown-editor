@@ -13,22 +13,22 @@ import ru.etu.view.ImageLinkPicker;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class Main extends Application {
-    private static Class classValue;
+    private static Class<?> classValue;
     private static Stage stage;
 
     public static Stage getParentStage() {
         return stage;
     }
 
-    /**
-     * WINDOWS
-     **/
-    private static void openWindow(String fxmlPath) throws IOException {
+    private static void openWindow() throws IOException {
         var stage = new Stage();
 
-        Parent root = FXMLLoader.load(classValue.getResource(fxmlPath));
+        URL res = classValue.getResource("/fxml/helpWindow.fxml");
+        assert (res != null);
+        Parent root = FXMLLoader.load(res);
         var scene = new Scene(root);
         stage.setScene(scene);
         stage.initOwner(getParentStage());
@@ -41,7 +41,7 @@ public class Main extends Application {
     }
 
     public static void openHelpWindow() throws IOException {
-        openWindow("/fxml/helpWindow.fxml");
+        openWindow();
     }
 
     public static boolean openNotSavedFileWindow() {
@@ -54,27 +54,17 @@ public class Main extends Application {
         alert.getButtonTypes().setAll(yesButton, noButton);
         alert.getDialogPane().getStylesheets().add("/style/darkTheme.css");
         alert.showAndWait();
-        if (alert.getResult() == yesButton) {
-            return true;
-        }
-        return false;
+        return alert.getResult() == yesButton;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            classValue = getClass();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainApp.fxml"));
-            primaryStage.setTitle("MD Editor");
-
-            var scene = new Scene(root);
-            primaryStage.setScene(scene);
-            stage = primaryStage;
-
-            primaryStage.show();
-        } catch (Exception e) {
-            displayError(e);
+    public static String openImageFileDialog() {
+        var file = openExistingFile(
+                new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png"));
+        if (file == null) {
+            return "";
         }
+
+        return file.getAbsolutePath();
     }
 
     public static void displayError(Exception e) {
@@ -168,13 +158,22 @@ public class Main extends Application {
                 new FileChooser.ExtensionFilter("Others", "*.*"));
     }
 
-    public static String openImageFileDialog() throws IOException {
-        var file = openExistingFile(
-                new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png"));
-        if (file == null) {
-            return "";
-        }
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            classValue = getClass();
+            URL res = getClass().getResource("/fxml/mainApp.fxml");
+            assert (res != null);
+            Parent root = FXMLLoader.load(res);
+            primaryStage.setTitle("MD Editor");
 
-        return file.getAbsolutePath();
+            var scene = new Scene(root);
+            primaryStage.setScene(scene);
+            stage = primaryStage;
+
+            primaryStage.show();
+        } catch (Exception e) {
+            displayError(e);
+        }
     }
 }

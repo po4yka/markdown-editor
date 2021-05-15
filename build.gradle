@@ -8,7 +8,7 @@ group ''
 version '1.0-SNAPSHOT'
 
 application {
-    mainClassName = 'ru.etu.launcher.Main'
+    mainClass.set('ru.etu.launcher.Main')
 }
 
 repositories {
@@ -17,7 +17,9 @@ repositories {
 
 sourceSets {
     main {
-        java.srcDirs = ['src']
+        java {
+            java.srcDirs = ['src']
+        }
         resources.srcDirs = ['resources']
     }
 }
@@ -30,21 +32,21 @@ javafx {
 dependencies {
     implementation 'junit:junit:4.12'
     implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
-    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
+    implementation group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
     testImplementation 'junit:junit:4.13'
 
     implementation 'org.openjfx:javafx:11'
 
-    compile 'org.openjfx:javafx-base:11'
-    compile 'org.openjfx:javafx-graphics:11'
-    compile 'org.openjfx:javafx-controls:11'
-    compile 'org.openjfx:javafx-fxml:11'
-    compile 'org.openjfx:javafx-swing:11'
-    compile 'org.openjfx:javafx-media:11'
-    compile 'org.openjfx:javafx-web:11'
+    implementation 'org.openjfx:javafx-base:11'
+    implementation 'org.openjfx:javafx-graphics:11'
+    implementation 'org.openjfx:javafx-controls:11'
+    implementation 'org.openjfx:javafx-fxml:11'
+    implementation 'org.openjfx:javafx-swing:11'
+    implementation 'org.openjfx:javafx-media:11'
+    implementation 'org.openjfx:javafx-web:11'
 
-    compile 'com.itextpdf:io:7.1.14'
-    compile 'com.itextpdf:kernel:7.1.14'
-    compile 'com.itextpdf:layout:7.1.14'
-    compile 'com.itextpdf:html2pdf:3.0.3'
+    implementation 'com.itextpdf:io:7.1.14'
+    implementation 'com.itextpdf:kernel:7.1.14'
+    implementation 'com.itextpdf:layout:7.1.14'
+    implementation 'com.itextpdf:html2pdf:3.0.3'
 }

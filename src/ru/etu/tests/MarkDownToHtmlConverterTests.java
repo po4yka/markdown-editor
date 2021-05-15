@@ -15,7 +15,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -105,7 +105,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -135,7 +135,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 
     @Test
@@ -165,6 +165,6 @@ public class MarkDownToHtmlConverterTests {
 
         var result = MarkDownToHtmlConverter.getConvertedBodyHtml(markdown);
 
-        assert(result.contains(html));
+        assert (result.contains(html));
     }
 }
