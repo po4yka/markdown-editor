@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.Integer?>
 <GridPane alignment="center" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.etu.view.MainApp" stylesheets="/styles/darkTheme.css">
+          fx:controller="ru.etu.view.MainApp" stylesheets="/ru/etu/styles/darkTheme.css">
     <fx:define>
         <Integer fx:id="btnSize" fx:value="30"/>
         <Integer fx:id="imageSize" fx:value="20"/>
 
         <Integer fx:id="exportImageHeight" fx:value="60"/>
 
-        <Image fx:id="btnImagePicture" url="/images/picture.png" requestedWidth="$imageSize"
+        <Image fx:id="btnImagePicture" url="/ru/etu/images/picture.png" requestedWidth="$imageSize"
                requestedHeight="$imageSize"/>
-        <Image fx:id="btnImageOl" url="/images/ol.png" requestedWidth="$imageSize" requestedHeight="$imageSize"/>
-        <Image fx:id="btnImageUl" url="/images/ul.png" requestedWidth="$imageSize" requestedHeight="$imageSize"/>
-        <Image fx:id="btnImageHighlight" url="/images/highlight.png" requestedWidth="$imageSize"
+        <Image fx:id="btnImageOl" url="/ru/etu/images/ol.png" requestedWidth="$imageSize" requestedHeight="$imageSize"/>
+        <Image fx:id="btnImageUl" url="/ru/etu/images/ul.png" requestedWidth="$imageSize" requestedHeight="$imageSize"/>
+        <Image fx:id="btnImageHighlight" url="/ru/etu/images/highlight.png" requestedWidth="$imageSize"
                requestedHeight="$imageSize"/>
 
-        <Image fx:id="btnImagePdf" url="/images/pdf.png" preserveRatio="true" requestedHeight="$exportImageHeight"/>
-        <Image fx:id="btnImageHtml" url="/images/html.png" preserveRatio="true" requestedHeight="$exportImageHeight"/>
+        <Image fx:id="btnImagePdf" url="/ru/etu/images/pdf.png" preserveRatio="true" requestedHeight="$exportImageHeight"/>
+        <Image fx:id="btnImageHtml" url="/ru/etu/images/html.png" preserveRatio="true" requestedHeight="$exportImageHeight"/>
     </fx:define>
     <rowConstraints>
         <RowConstraints vgrow="SOMETIMES"/>

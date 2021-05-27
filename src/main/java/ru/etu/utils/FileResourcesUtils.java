@@ -16,7 +16,7 @@ public class FileResourcesUtils {
 
     public InputStream getFileFromResourceAsStream(String fileName) {
 
-        ClassLoader classLoader = getClass().getClassLoader();
+        ClassLoader classLoader = FileResourcesUtils.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
 
         if (inputStream == null) {

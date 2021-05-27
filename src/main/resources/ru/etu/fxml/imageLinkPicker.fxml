@@ -8,7 +8,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ru.etu.view.ImageLinkPicker"
 
-      stylesheets="/styles/darkTheme.css"
+      stylesheets="/ru/etu/styles/darkTheme.css"
       spacing="5">
     <padding>
         <Insets left = "15" right="15" top="15" bottom="15"/>

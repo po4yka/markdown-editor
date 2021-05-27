@@ -8,14 +8,14 @@ plugins {
 group ''
 version '1.0-SNAPSHOT'
 
-mainClassName = '$moduleName/ru.etu.launcher.Main'
-
 sourceCompatibility = 11
 targetCompatibility = 11
 
 application {
     applicationName = 'markdown-editor'
+    mainModule.set('markdown.editor.merged.module')
     mainClassName = 'ru.etu.launcher.Main'
+    mainClass.set('ru.etu.launcher.Main')
 }
 
 jlink {
@@ -26,6 +26,7 @@ jlink {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -39,6 +40,10 @@ sourceSets {
 javafx {
     version = "11"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.web', 'javafx.media']
+}
+
+java {
+    modularity.inferModulePath = true
 }
 
 dependencies {

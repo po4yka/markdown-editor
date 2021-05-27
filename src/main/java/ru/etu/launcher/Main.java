@@ -165,9 +165,42 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             classValue = getClass();
-            InputStream str = fileResourcesUtils.getFileFromResourceAsStream("fxml/mainApp.fxml");
-            URL res = getClass().getResource("text.txt");
-            assert (res != null) : "res in Main start is null";
+            InputStream inputStream = null;
+            try {
+                inputStream = fileResourcesUtils.getFileFromResourceAsStream("/fxml/mainApp.fxml");
+            } catch (Exception ignored) {}
+            if (inputStream == null) {
+                try {
+                    inputStream = fileResourcesUtils.getFileFromResourceAsStream("fxml/mainApp.fxml");
+                } catch (Exception ignored) {}
+            }
+            if (inputStream == null) {
+                try {
+                    inputStream = fileResourcesUtils.getFileFromResourceAsStream("ru/etu/fxml/mainApp.fxml");
+                } catch (Exception ignored) {}
+            }
+            if (inputStream == null) {
+                try {
+                    inputStream = fileResourcesUtils.getFileFromResourceAsStream("/ru/etu/fxml/mainApp.fxml");
+                } catch (Exception ignored) {}
+            }
+            if (inputStream == null) {
+                try {
+                    inputStream = fileResourcesUtils.getFileFromResourceAsStream("/ru/etu/fxml/mainApp.fxml");
+                } catch (Exception ignored) {}
+            }
+            if (inputStream == null) {
+                try {
+                    inputStream = fileResourcesUtils.getFileFromResourceAsStream("src/main/resource/ru/etu/fxml/mainApp.fxml");
+                } catch (Exception ignored) {}
+            }
+            if (inputStream == null) {
+                try {
+                    inputStream = fileResourcesUtils.getFileFromResourceAsStream("./fxml/mainApp.fxml");
+                } catch (Exception ignored) {}
+            }
+            URL res = getClass().getResource("fxml/mainApp.fxml");
+            assert (res != null) : "inputStream in Main start is null";
             Parent root = FXMLLoader.load(res);
             primaryStage.setTitle("MD Editor");
 

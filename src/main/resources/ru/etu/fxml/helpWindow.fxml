@@ -5,6 +5,6 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       prefHeight="400.0" prefWidth="600.0"
-      fx:controller="ru.etu.view.Help" stylesheets="/styles/darkTheme.css">
+      fx:controller="ru.etu.view.Help" stylesheets="/ru/etu/styles/darkTheme.css">
     <Label fx:id="helpLabel"/>
 </VBox>
