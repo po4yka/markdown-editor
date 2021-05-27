@@ -9,15 +9,19 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ru.etu.utils.FileResourcesUtils;
 import ru.etu.view.ImageLinkPicker;
+import ru.etu.view.MainApp;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 public class Main extends Application {
     private static Class<?> classValue;
     private static Stage stage;
+    private final FileResourcesUtils fileResourcesUtils = new FileResourcesUtils();
 
     public static Stage getParentStage() {
         return stage;
@@ -27,7 +31,7 @@ public class Main extends Application {
         var stage = new Stage();
 
         URL res = classValue.getResource("/fxml/helpWindow.fxml");
-        assert (res != null);
+        assert (res != null) : "res in Main openWindow is null";
         Parent root = FXMLLoader.load(res);
         var scene = new Scene(root);
         stage.setScene(scene);
@@ -45,14 +49,15 @@ public class Main extends Application {
     }
 
     public static boolean openNotSavedFileWindow() {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("titre");
         alert.setContentText("Save ?");
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
         alert.getButtonTypes().setAll(yesButton, noButton);
-        alert.getDialogPane().getStylesheets().add("/style/darkTheme.css");
+        URL stylesheet = MainApp.class.getResource("/styles/darkTheme.css");
+        assert (stylesheet != null) : "stylesheet in Main openNotSavedFileWindow is null";
+        alert.getDialogPane().getStylesheets().add(stylesheet.toExternalForm());
         alert.showAndWait();
         return alert.getResult() == yesButton;
     }
@@ -79,13 +84,12 @@ public class Main extends Application {
         }
 
         alert.setContentText(stackTrace.toString());
-        alert.getDialogPane().getStylesheets().add("/style/darkTheme.css");
+        URL stylesheet = MainApp.class.getResource("/styles/darkTheme.css");
+        assert (stylesheet != null) : "stylesheet in Main displayError is null";
+        alert.getDialogPane().getStylesheets().add(stylesheet.toExternalForm());
         alert.show();
     }
 
-    /**
-     * OPEN SAVE AND EXPORT DIALOGS
-     **/
     public static File openSaveFileDialog() {
         return openFileDialog("Save as..",
                 new FileChooser.ExtensionFilter("Markdown Files", "*.md", "*.markdown"),
@@ -115,7 +119,9 @@ public class Main extends Application {
 
     public static String[] openLinkImagePicker(String text, boolean mustBeImage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(classValue.getResource("/fxml/imageLinkPicker.fxml"));
+        URL res = classValue.getResource("/fxml/imageLinkPicker.fxml");
+        assert (res != null) : "res in Main openLinkImagePicker is null";
+        loader.setLocation(res);
         final Parent rootPane = loader.load();
         Scene scene = new Scene(rootPane);
 
@@ -139,9 +145,6 @@ public class Main extends Application {
         return fileChooser.showSaveDialog(Main.getParentStage());
     }
 
-    /**
-     * OPEN EXISTING FILE DIALOGS
-     **/
     private static File openExistingFile(FileChooser.ExtensionFilter... extensionFilters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(extensionFilters);
@@ -162,8 +165,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             classValue = getClass();
-            URL res = getClass().getResource("/fxml/mainApp.fxml");
-            assert (res != null);
+            InputStream str = fileResourcesUtils.getFileFromResourceAsStream("fxml/mainApp.fxml");
+            URL res = getClass().getResource("text.txt");
+            assert (res != null) : "res in Main start is null";
             Parent root = FXMLLoader.load(res);
             primaryStage.setTitle("MD Editor");
 

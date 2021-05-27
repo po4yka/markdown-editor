@@ -31,7 +31,7 @@ public class Manager {
     }
 
     public final String PROP_STYLES_LOADED = "stylesLoaded";
-    private final Map<String, String> stylesLoaded = new HashMap<String, String>();
+    private final Map<String, String> stylesLoaded = new HashMap<>();
 
     private void addStyleLoaded(String styleName, String styleText) {
         stylesLoaded.put(styleName, styleText);
@@ -93,7 +93,7 @@ public class Manager {
         fileLoaded.updateSavedText();
     }
 
-    public void saveAs(FileLoaded fileLoaded, File file) throws IOException {
+    public void saveAs(FileLoaded fileLoaded, File file) {
         fileLoaded.setFileName(file.getName());
         fileLoaded.setFilePath(file.getPath());
         try {

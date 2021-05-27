@@ -15,8 +15,6 @@ import ru.etu.viewmodel.ManagerVM;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class FileEditorControl extends BorderPane {
     private final FileLoadedVM fileLoadedVM;
@@ -40,9 +38,7 @@ public class FileEditorControl extends BorderPane {
             throw new RuntimeException(exception);
         }
 
-        setLocale(Locale.getDefault().toString());
-
-        URL stylesheet = MainApp.class.getResource("/style/codeAreaStyle.css");
+        URL stylesheet = MainApp.class.getResource("/styles/darkTheme.css");
         if (stylesheet != null) codeArea.getStylesheets().add(stylesheet.toExternalForm());
 
         this.fileLoadedVM = fileLoadedVM;
@@ -99,10 +95,5 @@ public class FileEditorControl extends BorderPane {
 
     public int getCaretPosition() {
         return codeArea.getCaretPosition();
-    }
-
-    private void setLocale(String lang) {
-        Locale locale = new Locale(lang);
-        ResourceBundle bundle = ResourceBundle.getBundle("config.lang", locale);
     }
 }

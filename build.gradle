@@ -2,13 +2,27 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
+    id "org.beryx.jlink" version "2.24.0"
 }
 
 group ''
 version '1.0-SNAPSHOT'
 
+mainClassName = '$moduleName/ru.etu.launcher.Main'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
 application {
-    mainClass.set('ru.etu.launcher.Main')
+    applicationName = 'markdown-editor'
+    mainClassName = 'ru.etu.launcher.Main'
+}
+
+jlink {
+    options.set(['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages'])
+    launcher {
+        name = 'markdown-editor'
+    }
 }
 
 repositories {
@@ -18,15 +32,15 @@ repositories {
 sourceSets {
     main {
         java {
-            java.srcDirs = ['src']
+            java.srcDirs = ['src/main/java']
         }
-        resources.srcDirs = ['resources']
+        resources.srcDirs = ['src/main/resources']
     }
 }
 
 javafx {
     version = "11"
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.web' ]
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.web', 'javafx.media']
 }
 
 dependencies {
@@ -34,8 +48,6 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     implementation group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
     testImplementation 'junit:junit:4.13'
-
-    implementation 'org.openjfx:javafx:11'
 
     implementation 'org.openjfx:javafx-base:11'
     implementation 'org.openjfx:javafx-graphics:11'
@@ -49,4 +61,15 @@ dependencies {
     implementation 'com.itextpdf:kernel:7.1.14'
     implementation 'com.itextpdf:layout:7.1.14'
     implementation 'com.itextpdf:html2pdf:3.0.3'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': "markdown-editor",
+                'Main-Class': 'ru.etu.launcher.Main'
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

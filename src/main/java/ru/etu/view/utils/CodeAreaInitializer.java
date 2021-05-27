@@ -78,7 +78,7 @@ public abstract class CodeAreaInitializer {
                                                                                                                     matcher.group("CODE") != null ? "code" :
                                                                                                                             matcher.group("BALISE") != null ? "balise" :
                                                                                                                                     null; /* never happens */
-            assert styleClass != null;
+            assert(styleClass != null) : "styleClass in CodeAreaInitializer is null";
             spansBuilder.add(Collections.emptyList(), matcher.start(styleClass.toUpperCase()) - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end(styleClass.toUpperCase()) - matcher.start(styleClass.toUpperCase()));
             lastKwEnd = matcher.end(styleClass.toUpperCase());

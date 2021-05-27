@@ -13,8 +13,6 @@ import ru.etu.viewmodel.ManagerVM;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class MainApp {
     private final ManagerVM vm = new ManagerVM();
@@ -46,7 +44,21 @@ public class MainApp {
 
     @FXML
     private void initialize() throws IOException {
-        setLocale(Locale.getDefault().toString());
+
+        menuFile.setText(String.join(" ", "\uD83D\uDCC1", "File"));
+        menuItemHelp.setText(String.join(" ", "\u2754", "Help"));
+        menuOptions.setText(String.join(" ", "\uD83D\uDEE0", "Options"));
+        menuItemNewFile.setText(String.join(" ", "\uD83D\uDCF0", "New File"));
+        menuItemOpen.setText(String.join(" ", "\uD83D\uDCC2", "Open ..."));
+        menuItemSave.setText(String.join(" ", "\uD83D\uDCBE", "Save"));
+        menuItemSaveAs.setText(String.join(" ", "\uD83D\uDCBE", "Save As"));
+        menuItemExportAs.setText(String.join(" ", "\uD83D\uDCBE", "Export As"));
+
+        boldBtn.setText("B");
+        italicBtn.setText("I");
+        strikeThroughBtn.setText("abc");
+        codeBtn.setText("code");
+        quoteBtn.setText("");
 
         updateTabPane();
         vm.fileLoadedVMSProperty().addListener((__, old, newV) -> {
@@ -219,25 +231,5 @@ public class MainApp {
 
     private int getCurrentLine() {
         return getSelectedFileControl().getCurrentLine();
-    }
-
-    private void setLocale(String lang) {
-        Locale locale = new Locale(lang);
-        ResourceBundle bundle = ResourceBundle.getBundle("config.lang", locale);
-
-        menuFile.setText(String.join(" ", "\uD83D\uDCC1", bundle.getString("menuFile")));
-        menuItemHelp.setText(String.join(" ", "\u2754", bundle.getString("menuHelp")));
-        menuOptions.setText(String.join(" ", "\uD83D\uDEE0", bundle.getString("menuOptions")));
-        menuItemNewFile.setText(String.join(" ", "\uD83D\uDCF0", bundle.getString("menuItemNewFile")));
-        menuItemOpen.setText(String.join(" ", "\uD83D\uDCC2", bundle.getString("menuItemOpen")));
-        menuItemSave.setText(String.join(" ", "\uD83D\uDCBE", bundle.getString("menuItemSave")));
-        menuItemSaveAs.setText(String.join(" ", "\uD83D\uDCBE", bundle.getString("menuItemSaveAs")));
-        menuItemExportAs.setText(String.join(" ", "\uD83D\uDCBE", bundle.getString("menuItemExportAs")));
-
-        boldBtn.setText(bundle.getString("boldBtn"));
-        italicBtn.setText(bundle.getString("italicBtn"));
-        strikeThroughBtn.setText(bundle.getString("strikeThrough"));
-        codeBtn.setText(bundle.getString("codeBtn"));
-        quoteBtn.setText(bundle.getString("quoteBtn"));
     }
 }

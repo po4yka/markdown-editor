@@ -11,7 +11,7 @@ public abstract class StyleLoader {
         var map = new HashMap<String, String>();
         var folder = new File("resources/stylesToLoad");
         var files = folder.listFiles();
-        assert files != null;
+        assert(files != null) : "files in StyleLoader is null";
         for (File file : files) {
             var text = new String(Files.readAllBytes(file.toPath()));
             map.put(file.getName().replaceAll(".css$", ""), text);

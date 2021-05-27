@@ -8,11 +8,8 @@ import javafx.stage.Stage;
 import ru.etu.launcher.Main;
 
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class ImageLinkPicker {
-    private Locale locale;
     private boolean mustBeImage;
     private boolean isAdded = false;
 
@@ -41,7 +38,12 @@ public class ImageLinkPicker {
         textTxtField.setText(text);
         addBtn.setDisable(true);
 
-        setLocale(Locale.getDefault().toString());
+        textLabel.setText("Text");
+        linkLabel.setText("Link");
+
+        browseBtn.setText("Browse ...");
+        addBtn.setText("Add");
+        cancelBtn.setText("Cancel");
 
         if (mustBeImage) {
             textLabel.setVisible(false);
@@ -54,15 +56,15 @@ public class ImageLinkPicker {
             browseBtn.setVisible(false);
             browseBtn.setManaged(false);
             if (text.trim().isEmpty()) {
-                errorTextLabel.setText(getStringValue("errorEmptyFieldLabel"));
+                errorTextLabel.setText("Error : field must not be empty");
             }
         }
 
-        errorLinkLabel.setText(getStringValue("errorEmptyFieldLabel"));
+        errorLinkLabel.setText("Error : field must not be empty");
 
         textTxtField.textProperty().addListener((__) -> {
             if (!mustBeImage && textTxtField.getText().trim().isEmpty()) {
-                errorTextLabel.setText(getStringValue("errorEmptyFieldLabel"));
+                errorTextLabel.setText("Error : field must not be empty");
                 addBtn.setDisable(true);
             } else {
                 errorTextLabel.setText("");
@@ -74,10 +76,10 @@ public class ImageLinkPicker {
 
         linkTxtField.textProperty().addListener((__) -> {
             if (linkTxtField.getText().trim().isEmpty()) {
-                errorLinkLabel.setText(getStringValue("errorEmptyFieldLabel"));
+                errorLinkLabel.setText("Error : field must not be empty");
                 addBtn.setDisable(true);
             } else if (mustBeImage && !linkTxtField.getText().matches(".+[.](jpg|jpeg|png)$")) {
-                errorLinkLabel.setText(getStringValue("errorImageFormatLabel"));
+                errorLinkLabel.setText("Error : image must be .png, .jpg or .jpeg format");
                 addBtn.setDisable(true);
             } else {
                 errorLinkLabel.setText("");
@@ -107,22 +109,5 @@ public class ImageLinkPicker {
             linkTxtField.setText("file:/" + link);
         }
 
-    }
-
-    private void setLocale(String lang) {
-        locale = new Locale(lang);
-        ResourceBundle bundle = ResourceBundle.getBundle("config.lang", locale);
-
-        textLabel.setText(bundle.getString("textLabel"));
-        linkLabel.setText(bundle.getString("linkLabel"));
-
-        browseBtn.setText(bundle.getString("browseBtn"));
-        addBtn.setText(bundle.getString("addBtn"));
-        cancelBtn.setText(bundle.getString("cancelBtn"));
-    }
-
-    private String getStringValue(String name) {
-        ResourceBundle bundle = ResourceBundle.getBundle("config.lang", locale);
-        return bundle.getString(name);
     }
 }
