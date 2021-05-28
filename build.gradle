@@ -41,7 +41,7 @@ javafx {
 }
 
 java {
-    modularity.inferModulePath = true
+    modularity.inferModulePath.set(true)
 }
 
 dependencies {

@@ -165,7 +165,10 @@ public class HelloFX extends Application {
     public void start(Stage primaryStage) {
         try {
             classValue = getClass();
-            InputStream inputStream = null;
+            URL test_1 = HelloFX.class.getResource("/ru/etu/../..");
+            URL test_2 = HelloFX.class.getResource(".");
+            URL test_3 = HelloFX.class.getResource("/");
+            InputStream inputStream = ClassLoader.getSystemResourceAsStream("test.txt");
             try {
                 inputStream = fileResourcesUtils.getFileFromResourceAsStream("/fxml/mainApp.fxml");
             } catch (Exception ignored) {}
@@ -199,7 +202,7 @@ public class HelloFX extends Application {
                     inputStream = fileResourcesUtils.getFileFromResourceAsStream("./fxml/mainApp.fxml");
                 } catch (Exception ignored) {}
             }
-            URL res = getClass().getResource("fxml/mainApp.fxml");
+            URL res = getClass().getResource("/test.txt");
             assert (res != null) : "inputStream in HelloFX start is null";
             Parent root = FXMLLoader.load(res);
             primaryStage.setTitle("MD Editor");
