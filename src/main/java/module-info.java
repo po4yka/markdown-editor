@@ -1,4 +1,4 @@
-module MarkdownEditor {
+module markdowneditor {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id "org.beryx.jlink" version "2.24.0"
 }
 
@@ -12,21 +13,18 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 application {
-    applicationName = 'markdown-editor'
-    mainModule.set('markdown.editor.merged.module')
-    mainClassName = 'ru.etu.launcher.Main'
-    mainClass.set('ru.etu.launcher.Main')
+    applicationName = 'markdowneditor'
+    mainClass.set('ru.etu.Main')
 }
 
 jlink {
     options.set(['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages'])
     launcher {
-        name = 'markdown-editor'
+        name = 'markdowneditor'
     }
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -49,8 +47,9 @@ java {
 dependencies {
     implementation 'junit:junit:4.12'
     implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
-    implementation group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
     testImplementation 'junit:junit:4.13'
+
+    implementation group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
 
     implementation 'org.openjfx:javafx-base:11'
     implementation 'org.openjfx:javafx-graphics:11'
@@ -66,13 +65,24 @@ dependencies {
     implementation 'com.itextpdf:html2pdf:3.0.3'
 }
 
+shadowJar {
+    archiveBaseName.set('markdowneditor')
+    archiveClassifier.set('classifier')
+    archiveVersion.set('1.0')
+    manifest.attributes('Main-Class': 'ru.etu.Main')
+}
+
+// for other possible options, disabled
 jar {
-    manifest {
-        attributes 'Implementation-Title': "markdown-editor",
-                'Main-Class': 'ru.etu.launcher.Main'
-    }
+    manifest.attributes('Main-Class': 'ru.etu.Main')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        exclude '**/module-info.class'
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+jar.enabled = false
+
+build.dependsOn(shadowJar)
