@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ru.etu.launcher.Main;
+import ru.etu.launcher.HelloFX;
 
 import java.io.IOException;
 
@@ -104,7 +104,7 @@ public class ImageLinkPicker {
 
     @FXML
     private void browseImage() throws IOException {
-        var link = Main.openImageFileDialog();
+        var link = HelloFX.openImageFileDialog();
         if (!link.isEmpty()) {
             linkTxtField.setText("file:/" + link);
         }

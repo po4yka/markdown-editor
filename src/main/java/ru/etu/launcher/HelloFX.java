@@ -31,7 +31,7 @@ public class HelloFX extends Application {
         var stage = new Stage();
 
         URL res = classValue.getResource("/fxml/helpWindow.fxml");
-        assert (res != null) : "res in Main openWindow is null";
+        assert (res != null) : "res in HelloFX openWindow is null";
         Parent root = FXMLLoader.load(res);
         var scene = new Scene(root);
         stage.setScene(scene);
@@ -56,7 +56,7 @@ public class HelloFX extends Application {
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
         alert.getButtonTypes().setAll(yesButton, noButton);
         URL stylesheet = MainApp.class.getResource("/styles/darkTheme.css");
-        assert (stylesheet != null) : "stylesheet in Main openNotSavedFileWindow is null";
+        assert (stylesheet != null) : "stylesheet in HelloFX openNotSavedFileWindow is null";
         alert.getDialogPane().getStylesheets().add(stylesheet.toExternalForm());
         alert.showAndWait();
         return alert.getResult() == yesButton;
@@ -85,7 +85,7 @@ public class HelloFX extends Application {
 
         alert.setContentText(stackTrace.toString());
         URL stylesheet = MainApp.class.getResource("/styles/darkTheme.css");
-        assert (stylesheet != null) : "stylesheet in Main displayError is null";
+        assert (stylesheet != null) : "stylesheet in HelloFX displayError is null";
         alert.getDialogPane().getStylesheets().add(stylesheet.toExternalForm());
         alert.show();
     }
@@ -120,7 +120,7 @@ public class HelloFX extends Application {
     public static String[] openLinkImagePicker(String text, boolean mustBeImage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL res = classValue.getResource("/fxml/imageLinkPicker.fxml");
-        assert (res != null) : "res in Main openLinkImagePicker is null";
+        assert (res != null) : "res in HelloFX openLinkImagePicker is null";
         loader.setLocation(res);
         final Parent rootPane = loader.load();
         Scene scene = new Scene(rootPane);
@@ -200,7 +200,7 @@ public class HelloFX extends Application {
                 } catch (Exception ignored) {}
             }
             URL res = getClass().getResource("fxml/mainApp.fxml");
-            assert (res != null) : "inputStream in Main start is null";
+            assert (res != null) : "inputStream in HelloFX start is null";
             Parent root = FXMLLoader.load(res);
             primaryStage.setTitle("MD Editor");
 

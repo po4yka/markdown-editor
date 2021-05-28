@@ -1,7 +1,7 @@
 package ru.etu.view.utils;
 
 import javafx.scene.control.Tab;
-import ru.etu.launcher.Main;
+import ru.etu.launcher.HelloFX;
 import ru.etu.view.FileEditorControl;
 import ru.etu.viewmodel.FileLoadedVM;
 import ru.etu.viewmodel.ManagerVM;
@@ -18,12 +18,12 @@ public abstract class TabFactory {
 
         tab.setOnCloseRequest(__ -> {
             if (!fileLoadedVM.isFileSaved()) {
-                boolean mustSave = Main.openNotSavedFileWindow();
+                boolean mustSave = HelloFX.openNotSavedFileWindow();
                 if (mustSave) {
                     try {
                         managerVM.save(fileLoadedVM);
                     } catch (InvalidPathException e) {
-                        var file = Main.openSaveFileDialog();
+                        var file = HelloFX.openSaveFileDialog();
                         if (file != null) {
                             try {
                                 managerVM.saveAs(fileLoadedVM, file);
@@ -32,7 +32,7 @@ public abstract class TabFactory {
                             }
                         }
                     } catch (IOException e) {
-                        Main.displayError(e);
+                        HelloFX.displayError(e);
                     }
                 }
             }

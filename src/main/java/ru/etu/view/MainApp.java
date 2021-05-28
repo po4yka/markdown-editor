@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import ru.etu.launcher.Main;
+import ru.etu.launcher.HelloFX;
 import ru.etu.view.utils.TabFactory;
 import ru.etu.viewmodel.FileLoadedVM;
 import ru.etu.viewmodel.ManagerVM;
@@ -86,13 +86,13 @@ public class MainApp {
 
     @FXML
     private void help() throws IOException {
-        Main.openHelpWindow();
+        HelloFX.openHelpWindow();
     }
 
 
     @FXML
     private void openFile() throws IOException {
-        File file = Main.openExistingMarkdownFile();
+        File file = HelloFX.openExistingMarkdownFile();
         if (file != null) {
             vm.openFile(file);
         }
@@ -109,7 +109,7 @@ public class MainApp {
 
     @FXML
     private void saveAs() throws IOException {
-        var file = Main.openSaveFileDialog();
+        var file = HelloFX.openSaveFileDialog();
         var fileLoadedVM = getSelectedFileVM();
         if (file != null) {
             vm.saveAs(fileLoadedVM, file);
@@ -118,7 +118,7 @@ public class MainApp {
 
     @FXML
     private void exportAs() throws IOException {
-        var file = Main.openExportFileDialog();
+        var file = HelloFX.openExportFileDialog();
         var fileLoadedVM = getSelectedFileVM();
         if (file != null) {
             vm.exportAs(fileLoadedVM, file);
@@ -167,7 +167,7 @@ public class MainApp {
 
     @FXML
     private void image() throws IOException {
-        var values = Main.openLinkImagePicker("Image not found", true);
+        var values = HelloFX.openLinkImagePicker("Image not found", true);
         if (values == null) {
             return;
         }
@@ -180,7 +180,7 @@ public class MainApp {
         var selectedText = getSelectedFileControl().getSelection();
         var text = getSelectedFileVM().getMarkDownText().substring(selectedText.getStart(), selectedText.getEnd());
 
-        var values = Main.openLinkImagePicker(text, false);
+        var values = HelloFX.openLinkImagePicker(text, false);
         if (values == null) {
             return;
         }
@@ -218,7 +218,7 @@ public class MainApp {
         var node = (Node) event.getSource();
         String exportFormat = (String) node.getUserData();
 
-        var file = Main.openExportFileDialog(exportFormat);
+        var file = HelloFX.openExportFileDialog(exportFormat);
         var fileLoadedVM = getSelectedFileVM();
         if (file != null) {
             vm.exportAs(fileLoadedVM, file);
