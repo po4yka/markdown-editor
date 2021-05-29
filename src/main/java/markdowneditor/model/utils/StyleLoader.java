@@ -1,13 +1,10 @@
 package markdowneditor.model.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class StyleLoader {
     public static Map<String, String> getAllStyles() throws IOException {

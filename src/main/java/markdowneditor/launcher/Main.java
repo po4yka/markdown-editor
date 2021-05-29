@@ -28,7 +28,7 @@ public class Main extends Application {
     private static void openWindow() throws IOException {
         var stage = new Stage();
 
-        URL res = classValue.getResource("helpWindow.fxml");
+        URL res = classValue.getResource("/fxml/helpWindow.fxml");
         assert (res != null) : "res in Main openWindow is null";
         Parent root = FXMLLoader.load(res);
         var scene = new Scene(root);
@@ -117,7 +117,7 @@ public class Main extends Application {
 
     public static String[] openLinkImagePicker(String text, boolean mustBeImage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL res = classValue.getResource("imageLinkPicker.fxml");
+        URL res = classValue.getResource("/fxml/imageLinkPicker.fxml");
         assert (res != null) : "res in Main openLinkImagePicker is null";
         loader.setLocation(res);
         final Parent rootPane = loader.load();
@@ -174,9 +174,6 @@ public class Main extends Application {
 
             primaryStage.show();
         } catch (Exception e) {
-            String msg = e.getMessage();
-            Throwable stacktrace = e.getCause();
-            e.printStackTrace();
             displayError(e);
         }
     }
